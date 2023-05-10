@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;     
     }
 
-    private void FixedUpdate() {
+    private void Update() {
         turretControl.SetAim(targetPos);
     }   
     private void LateUpdate()
