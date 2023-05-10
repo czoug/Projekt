@@ -74,7 +74,6 @@ public class CameraController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireSphere(targetPos, 5.0f);
         Gizmos.DrawLine(transform.position, transform.forward * 200.0f);
     }
 

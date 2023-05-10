@@ -91,25 +91,32 @@ public class PlayerMovement : MonoBehaviour
         //calculate move direction
         moveDirection = orientation.forward * verticalInput + orientation.right * 0f;
 
-        //on slope
-        if (OnSlope())
+        Vector3 up = new Vector3(0, 1, 0);
+
+        if (Vector3.Dot(orientation.up, up) > 0.5)
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Force);
-            transform.Rotate(0, horizontalInput * Time.deltaTime * rotationSpeed, 0);
-        }
-        //on ground
-        else if (grounded)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Force);
-            transform.Rotate(0, horizontalInput * Time.deltaTime * rotationSpeed, 0);
-        }
-        //in air
-        else if (!grounded)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 1f, ForceMode.Force);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Force);
+            //on slope
+            if (OnSlope())
+            {
+                rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 5f, ForceMode.Force);
+                // rotate
+                transform.Rotate(0, horizontalInput * Time.deltaTime * rotationSpeed, 0);
+            }
+            //on ground
+            else if (grounded)
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 5f, ForceMode.Force);
+                // rotate
+                transform.Rotate(0, horizontalInput * Time.deltaTime * rotationSpeed, 0);
+            }
+            //in air
+            else if (!grounded)
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * 1f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 5f, ForceMode.Force);
+            }
         }
     }
 
